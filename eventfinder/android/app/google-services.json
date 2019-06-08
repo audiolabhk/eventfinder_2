@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "646852914542",
+    "firebase_url": "https://eventfinderpro.firebaseio.com",
+    "project_id": "eventfinderpro",
+    "storage_bucket": "eventfinderpro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646852914542:android:a29a6fa76fe53d8f",
+        "android_client_info": {
+          "package_name": "com.audiolabhk.eventfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646852914542-9e9ieqamq0j2buvnjfi7k2cnq5tsver2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxx1qdU660Xq81Yaxk9BdWhHKsmaOFAII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646852914542-9e9ieqamq0j2buvnjfi7k2cnq5tsver2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
