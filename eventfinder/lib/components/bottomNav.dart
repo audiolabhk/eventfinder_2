@@ -11,6 +11,10 @@ Widget bottomNav(context) {
     }
 
   return BottomNavigationBar(
+    currentIndex: 0,
+    selectedFontSize: 40,
+    unselectedFontSize: 20,
+    type: BottomNavigationBarType.fixed,
     onTap: (index) => _handleTap(index),
     items: [
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),

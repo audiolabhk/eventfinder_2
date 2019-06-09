@@ -22,9 +22,11 @@ class _MainState extends State<Main> {
   String _activeTitle = "Home";
   List<String> titles = ['Home', 'Explore', 'Favorites'];
   List<Widget> _pages = [Home(), Explore(), Favorites()];
+  int _navIndex = 0;
 
   void _handleTap(index) {
     setState(() {
+      _navIndex = index;
       _activePage = _pages[index];
       _activeTitle = titles[index];
     });
@@ -33,17 +35,20 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar:
-            BottomNavigationBar(onTap: (index) => _handleTap(index), items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.explore), title: Text("Explore")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), title: Text("Favorites")),
-        ]),
-        appBar: AppBar(
-          title: Text(_activeTitle),
-        ),
-        body: _activePage
-    );}
+      appBar: AppBar(
+        title: Text(_activeTitle),
+      ),
+      body: _activePage,
+      bottomNavigationBar:
+        BottomNavigationBar(
+          currentIndex: _navIndex,
+          onTap: (index) => _handleTap(index), items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.explore), title: Text("Explore")),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.favorite), title: Text("Favorites")),
+      ]),
+    );
+  }
 }

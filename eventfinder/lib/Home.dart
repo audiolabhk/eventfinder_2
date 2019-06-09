@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: Firestore.instance.collection("events").snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return CircularProgressIndicator();
-          else
-            return ListView.builder(
-                // var events = snapshot.data.documents;
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) {
-                  final event = snapshot.data.documents[index];
-                  return ListTile(
-                      title: Text(event['title']),
-                      subtitle: Text(event['location']),
-                      leading: Icon(Icons.event));
-                });
-        });
+    return GestureDetector(
+      // onLongPress: () => _navigate(context, Explore()),
+      // onHorizontalDragStart: {_navigate(context,Explore()},
+      child: Center(
+        child: Image.network(
+            'https://scontent.fhkg3-1.fna.fbcdn.net/v/t1.0-9/40838671_293579784570903_5502731126340321280_n.png?_nc_cat=105&_nc_ht=scontent.fhkg3-1.fna&oh=a5e8e4de8b6d11ea0babe97dc951944a&oe=5D821F7C'),
+      ),
+    );
   }
 }
+
+// void _navigate(context, Widget target) {
+//   Navigator.push(context, MaterialPageRoute(builder: (context) => target));
+// }
