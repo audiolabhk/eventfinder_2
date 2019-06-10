@@ -18,28 +18,29 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  int _navIndex;
+  int _navIndex = 0;
+  void _setStupidIconColor(index) {
+    setState(() {
+      _navIndex = index;
+    });
+  }
+
+  void _handleTap(index) {
+    setState(() {
+      pc.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.bounceIn);
+    });
+  }
 
   final pc = PageController(initialPage: 0);
   Widget pv() {
     return PageView(
       controller: pc,
       children: <Widget>[Home(), Explore(), Favorites()],
-      onPageChanged: (index) => _setStupidIconColor(index),
+      onPageChanged: (index) {
+        _setStupidIconColor(index);
+      },
     );
-  }
-
-
-  void _setStupidIconColor(index) {
-    setState(() {
-      _navIndex = index;
-    });
-  }
-  void _handleTap(index) {
-    setState(() {
-      pc.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.bounceIn);
-    });
   }
 
   @override
