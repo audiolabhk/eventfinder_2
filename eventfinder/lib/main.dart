@@ -28,7 +28,7 @@ class _MainState extends State<Main> {
   void _handleTap(index) {
     setState(() {
       pc.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.bounceIn);
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
   }
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import './Event.dart';
-
-import 'Detail.dart';
 
 class Favorites extends StatelessWidget {
+  final titleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     _handleDelete(context, docID) {
@@ -30,10 +28,28 @@ class Favorites extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+                elevation: 20,
                 title: Text("Edit"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Cancel'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  FlatButton(
+                      child: Text('Save'),
+                      onPressed: () {
+                        Firestore.instance
+                            .collection('events')
+                            .document(event.documentID)
+                            .updateData({'title': titleController.text});
+                        Navigator.pop(context);
+                      })
+                ],
                 content: Column(children: <Widget>[
                   TextField(
-                      decoration: InputDecoration(helperText: 'Edit Title',hintText: event['title']))
+                      controller: titleController,
+                      decoration: InputDecoration(
+                          helperText: 'Edit Title', hintText: event['title']))
                 ]));
           });
     }
@@ -53,17 +69,14 @@ class Favorites extends StatelessWidget {
                       // onTap: ()=> showSnackBar(context, "This feature is coming soon!"),
                       title: Text(event['title']),
                       leading: IconButton(
-                        icon: Icon(Icons.edit_attributes),
+                        icon: Icon(Icons.edit),
                         onPressed: () => _handleEdit(context, event),
                       ),
                       subtitle: Text(event['location']),
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Detail(event as Event))),
                       trailing: IconButton(
                           icon: Icon(Icons.remove),
-                          onPressed: () => _handleDelete(context, event.documentID)));
+                          onPressed: () =>
+                              _handleDelete(context, event.documentID)));
                 });
         });
   }
