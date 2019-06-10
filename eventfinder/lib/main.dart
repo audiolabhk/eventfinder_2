@@ -18,17 +18,27 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  Widget _activePage = Home();
-  String _activeTitle = "Home";
-  List<String> titles = ['Home', 'Explore', 'Favorites'];
-  List<Widget> _pages = [Home(), Explore(), Favorites()];
-  int _navIndex = 0;
+  int _navIndex;
 
-  void _handleTap(index) {
+  final pc = PageController(initialPage: 0);
+  Widget pv() {
+    return PageView(
+      controller: pc,
+      children: <Widget>[Home(), Explore(), Favorites()],
+      onPageChanged: (index) => _setStupidIconColor(index),
+    );
+  }
+
+
+  void _setStupidIconColor(index) {
     setState(() {
       _navIndex = index;
-      _activePage = _pages[index];
-      _activeTitle = titles[index];
+    });
+  }
+  void _handleTap(index) {
+    setState(() {
+      pc.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.bounceIn);
     });
   }
 
@@ -36,19 +46,23 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_activeTitle),
+        backgroundColor: Colors.black87,
+        elevation: 20,
       ),
-      body: _activePage,
-      bottomNavigationBar:
-        BottomNavigationBar(
+      body: pv(),
+      bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.black87,
+          unselectedItemColor: Colors.white,
           currentIndex: _navIndex,
-          onTap: (index) => _handleTap(index), items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.explore), title: Text("Explore")),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.favorite), title: Text("Favorites")),
-      ]),
+          onTap: (index) => _handleTap(index),
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home), title: Text("Home")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.explore), title: Text("Explore")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.favorite), title: Text("Favorites")),
+          ]),
     );
   }
 }

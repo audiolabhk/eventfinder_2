@@ -22,3 +22,5 @@ Widget bottomNav(context) {
     BottomNavigationBarItem(icon: Icon(Icons.favorite), title: Text("Favorites")),
   ]);
   }
+
+  

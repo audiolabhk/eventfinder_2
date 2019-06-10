@@ -1,9 +1,11 @@
+import 'package:eventfinder/Detail.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './Event.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import './Detail.dart';
 
 class Explore extends StatelessWidget {
   Future<List<Event>> _getEvents() async {
@@ -24,7 +26,7 @@ class Explore extends StatelessWidget {
       'location': toAdd.location,
       'date': toAdd.date,
     });
-    
+
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -50,18 +52,31 @@ class Explore extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           } else {
             return Container(
-              child: ListView.builder(
+              color: Colors.black87,
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1),
                 itemCount: snapshot.data.length,
                 itemBuilder: (ctx, index) {
-                  return ListTile(
-                      title: Text(snapshot.data[index].title),
-                      subtitle: Text(snapshot.data[index].date),
-                      leading: Icon(Icons.event),
-                      trailing: IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () =>
-                            _handleAdd(context, snapshot.data[index]),
-                      ));
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      GestureDetector(
+                        onLongPress: ()=> Navigator.push(context,MaterialPageRoute(builder: (context)=>Detail(snapshot.data[index]))),
+                        child: Image.asset(
+                            'lib/images/dance.jpg'),
+                      ),
+                      ListTile(
+                          title: Text(snapshot.data[index].title, style:TextStyle(color: Colors.white)),
+                          subtitle: Text(snapshot.data[index].date, style:TextStyle(color: Colors.white)),
+                          onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (context)=>Detail(snapshot.data[index] as Event))),
+                          trailing: IconButton(
+                            icon: Icon(Icons.add,color: Colors.redAccent,),
+                            onPressed: () =>
+                                _handleAdd(context, snapshot.data[index] as Event),
+                          ))
+                    ],
+                  );
                 },
               ),
             );

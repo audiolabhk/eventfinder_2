@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import './Event.dart';
+
+import 'Detail.dart';
 
 class Favorites extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
 
@@ -34,9 +35,11 @@ class Favorites extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final event = snapshot.data.documents[index];
                   return ListTile(
+                    // onTap: ()=> showSnackBar(context, "This feature is coming soon!"),
                     title: Text(event['title']),
                     subtitle: Text(event['location']),
                     leading: Icon(Icons.event),
+                    onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>Detail(event as Event))),
                     trailing: IconButton(
                       icon: Icon(Icons.remove),
                       onPressed: ()=> _handleDelete(context, event.documentID)
